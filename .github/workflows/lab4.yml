@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
-        with: 
+        with:
           python-version: 3.7
 
       - name: Install dependencies
@@ -33,4 +33,4 @@ jobs:
 
       - name: Run doctest
         run: |
-          python -m doctest -v main.py
+          python -m doctest -v lab4/main.py
