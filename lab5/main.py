@@ -42,8 +42,6 @@ def state(N, f, cols):
         print("Incorrect expression")
 
 def check(img, X, rules):
-    for k, v in rules.items():
-        exec(k + " = rules[k]")
     h, w = X[0].shape
     cols = int(len(img[0]) / w)
     f = dict()
