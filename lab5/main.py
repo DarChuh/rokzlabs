@@ -1,9 +1,11 @@
 from glob import glob
+import numpy as np
 import cv2
 
 sample = cv2.imread(glob('**/sample_1.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
 x0 = cv2.imread(glob('**/x0.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
 x1 = cv2.imread(glob('**/x1.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
+x = np.array([x0, x1])
 
 def crop(img, i, i_, j, j_, shape):
     """
@@ -48,6 +50,10 @@ def state(N, f, cols):
         print("Incorrect expression")
 
 def check(img, X, rules):
+    """
+    >>> check(sample, x)
+    Right expression: 0
+    """
     h, w = X[0].shape
     cols = int(len(img[0]) / w)
     f = dict()
