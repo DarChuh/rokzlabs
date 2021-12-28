@@ -17,6 +17,12 @@ def crop(img, i, i_, j, j_, shape):
     return img[i*h:(i_+1)*h, j*w:(j_+1)*w]
 
 def split(flag, N, f, gvh, i, i_, j, j_, n):
+    """
+    >>> N = ['1', 'A11']
+    >>> f = {(0,0,0,0,'1'): True, (0,0,0,0,'A11'): False, (1,1,0,0,'1'): True, (1,1,0,0,'A11'): False, (0,1,0,0,'1'): False, (0,1,0,0,'A11'): False}
+    >>> split('v', N, f, rules['gv'], 0, 1, 0, 0, 'A11')
+    True
+    """
     result = []
     for n1 in N:
         for n2 in N:
@@ -36,12 +42,26 @@ def split(flag, N, f, gvh, i, i_, j, j_, n):
     return any(result)
 
 def rename(T, f, g, i, i_, j, j_, n):
+    """
+    >>> f = {(0,0,0,0,1): True, (0,0,0,0,0): False, (0,0,0,0,'1'): False}
+    >>> rename(rules['T'], f, rules['g'], 0,0,0,0, '1')
+    True
+    """
     result = []
     for t in T:
         result.append(all([f[i, i_, j, j_, t], (t, n) in g]))
     return any(result)
 
 def state(N, f, cols):
+    """
+    >>> N = ['I', 'V1']
+    >>> f = {(0,2,0,3,'I'): True, (0,2,0,0,'I'): False, (0, 2, 0, 0, 'V1'): True}
+    >>> state(N, f, 4)
+    Right expression: 0
+    >>> f[0,2,0,3,'I']= False
+    >>> state(N, f, 4)
+    Incorrect expression
+    """
     if f[0, 2, 0, cols-1, 'I']:
         for n_ in N:
             if f[0, 2, 0, 0, n_]:
