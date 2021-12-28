@@ -1,6 +1,7 @@
 from glob import glob
 import numpy as np
 import cv2
+from rules import rules
 
 sample = cv2.imread(glob('**/sample_1.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
 x0 = cv2.imread(glob('**/x0.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
@@ -51,7 +52,7 @@ def state(N, f, cols):
 
 def check(img, X, rules):
     """
-    >>> check(sample, x)
+    >>> check(sample, x, rules)
     Right expression: 0
     """
     h, w = X[0].shape
