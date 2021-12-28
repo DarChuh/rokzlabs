@@ -1,7 +1,13 @@
-import matplotlib.pyplot as plt
+from glob import glob
+import cv2
+
+sample = cv2.imread(glob('**/sample_1.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
+x0 = cv2.imread(glob('**/x0.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
+x1 = cv2.imread(glob('**/x1.png', recursive=True)[0], cv2.IMREAD_GRAYSCALE)
+
 def crop(img, i, i_, j, j_, shape):
     """
-    >>> (crop(x1, 0,0,0,0, (30,30))==x1).all()
+    >>> (crop(sample, 0,0,0,0, (30,30))==x0).all()
     True
     """
     h, w = shape
@@ -71,4 +77,3 @@ def check(img, X, rules):
                             f[i, i_, j, j_, n] = any([f[i, i_, j, j_, n], hor, ver, ren])
 
     state(rules['N'], f, cols)
-    return plt.imshow(img)
